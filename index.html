@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation using JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <br>
+    <h1>Form Validation using JavaScript</h1>
+    <br>
+    <form class="form1" action="form_submit.html" method="post" onsubmit="return validateForm()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="name"
+                placeholder="Enter your Name"/>
+            <div class= "showerr" id="nameErr"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter your Phone" />
+            <div class= "showerr" id="phoneErr"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" />
+            <div class= "showerr" id="emailErr"></div>
+        </div>
+        <div class="text-center">
+
+      
+        <button
+            type="submit"
+            class="btn btn-primary">
+            Submit
+        </button>
+    </div>
+        
+        </form>
+        <script>
+            function validateForm(){
+                // validate form
+                let name = document.getElementById("name").value;
+                let phone = document.getElementById("phone").value;
+                let email = document.getElementById("email").value;
+
+                let nameErr = document.getElementById("nameErr");
+                let phoneErr = document.getElementById("phoneErr");
+                let emailErr = document.getElementById("emailErr");
+
+                nameErr.innerHTML = "";
+                phoneErr.innerHTML = "";
+                emailErr.innerHTML = "";
+
+                let errFlag = false;
+
+                if (name.length == 0){
+                    nameErr.innerHTML = "Name is Required";
+                    errFlag = true;
+                }
+
+                if (phone.length == 0) {
+                    phoneErr.innerHTML = "Phone is Required";
+                    errFlag = true;
+                }
+                else{
+                    let phone_regex = /^[1-9][0-9]{9}$/;
+                    if (!phone.match(phone_regex)){
+                        phoneErr.innerHTML = "Phone must be 10 digit with no leading zero";
+                        errFlag = true;
+                    }
+                }
+
+                if (email.length == 0) {
+                    emailErr.innerHTML = "Email is Required";
+                    errFlag = true;
+                }
+                else{
+                    email_regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    if (!email.match(email_regex)){
+                        emailErr.innerHTML = "Email is Invalid";
+                        errFlag = true;
+                    }
+                }
+
+                if (errFlag){
+                    return false;
+                }
+
+            }
+        </script>
+</body>
+</html>
